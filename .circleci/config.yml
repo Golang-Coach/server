@@ -29,7 +29,11 @@ jobs:
 
       - run: go get github.com/mitchellh/gox
 
+      - run: go get -u github.com/swaggo/swag/cmd/swag
+
       - run: govendor sync
+
+      - run: swag init
 
       - save_cache:
           paths:
