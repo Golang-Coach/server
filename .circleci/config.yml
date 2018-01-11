@@ -17,13 +17,13 @@ jobs:
     #### expecting it in the form of
     ####   /go/src/github.com/circleci/go-tool
     ####   /go/src/bitbucket.org/circleci/go-tool
-    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+    working_directory: /go/src/github.com/Golang-Coach/server
     steps:
       - checkout
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "vendor/vendor.json" }}
+          - v1-dependencies-{{ checksum "./vendor/vendor.json" }}
 
       - run: go get github.com/kardianos/govendor
 
@@ -38,7 +38,7 @@ jobs:
       - save_cache:
           paths:
             - vendor
-          key: v1-dependencies-{{ checksum "vendor/vendor.json" }}
+          key: v1-dependencies-{{ checksum "./vendor/vendor.json" }}
 
       - run: gox -os="linux"
 #

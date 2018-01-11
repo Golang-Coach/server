@@ -4,9 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-
-	_ "github.com/Golang-Coach/server/docs"
 	"os"
+	_ "github.com/Golang-Coach/server/docs"
 )
 
 var DB = make(map[string]string)
@@ -30,8 +29,6 @@ func setupRouter() *gin.Engine {
 
 	return r
 }
-
-
 
 // @title Swagger Example API
 // @version 1.0
