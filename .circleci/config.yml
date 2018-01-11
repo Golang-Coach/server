@@ -23,7 +23,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "./vendor/vendor.json" }}
+          - vendor-dependencies
 
       - run: go get github.com/kardianos/govendor
 
@@ -38,7 +38,7 @@ jobs:
       - save_cache:
           paths:
             - vendor
-          key: v1-dependencies-{{ checksum "./vendor/vendor.json" }}
+          key: vendor-dependencies
 
       - run: gox -os="linux"
 
