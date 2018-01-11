@@ -15,3 +15,5 @@
 
 ./server*
 ./main.exe
+
+.idea/*

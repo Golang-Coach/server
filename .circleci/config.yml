@@ -21,11 +21,20 @@ jobs:
     steps:
       - checkout
 
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "vendor/vendor.json" }}
+
       - run: go get github.com/kardianos/govendor
 
       - run: go get github.com/mitchellh/gox
 
       - run: govendor sync
+
+      - save_cache:
+          paths:
+            - vendor
+          key: v1-dependencies-{{ checksum "vendor/vendor.json" }}
 
       - run: gox -os="linux"
 #
