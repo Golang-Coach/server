@@ -49,3 +49,4 @@ jobs:
                 docker build -t   golangcoach/server:$TAG .      # (4)
                 docker login -u $DOCKER_USER -p $DOCKER_PASS         # (5)
                 docker push golangcoach/server:$TAG
+                docker push golangcoach/server
