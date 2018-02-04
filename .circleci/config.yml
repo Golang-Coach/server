@@ -21,10 +21,6 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-          - vendor-dependencies
-
       - run: go get github.com/kardianos/govendor
 
       - run: go get github.com/mitchellh/gox
@@ -34,11 +30,6 @@ jobs:
       - run: govendor sync
 
       - run: swag init
-
-      - save_cache:
-          paths:
-            - vendor
-          key: vendor-dependencies
 
       - run: gox -os="linux"
 
