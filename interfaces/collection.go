@@ -1,6 +1,6 @@
 package interfaces
 
-import "gopkg.in/mgo.v2"
+import "github.com/globalsign/mgo"
 
 type ICollection interface {
 	Insert(...interface{}) error

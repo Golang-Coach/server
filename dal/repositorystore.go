@@ -4,7 +4,7 @@ import (
 	"github.com/Golang-Coach/server/db"
 	"github.com/Golang-Coach/server/interfaces"
 	"github.com/Golang-Coach/server/models"
-	"gopkg.in/mgo.v2/bson"
+	"github.com/globalsign/mgo/bson"
 )
 
 type RepositoryStore struct {
@@ -17,20 +17,20 @@ func NewRepositoryStore(dataStore *db.DataStore) interfaces.IRepositoryStore {
 	}
 }
 
-func (store RepositoryStore) FindPackage(query interface{}) (*models.Repository, error) {
+func (store RepositoryStore) FindPackage(query interface{}) (*models.RepositoryInfo, error) {
 	// find package with limit
-	repositoryInfo := &models.Repository{}
+	repositoryInfo := &models.RepositoryInfo{}
 	err := store.GetCollection().Find(query).All(repositoryInfo)
 	return repositoryInfo, err
 }
 
-func (store RepositoryStore) FindPackageWithinLimit(query string, skip int, limit int) (*[]models.Repository, error) {
+func (store RepositoryStore) FindPackageWithinLimit(query string, skip int, limit int) (*[]models.RepositoryInfo, error) {
 	// find package with limit
-	repositories := &[]models.Repository{}
+	repositories := &[]models.RepositoryInfo{}
 
 	result := store.GetCollection().
 		Find(bson.M{}).
-		Select(bson.M{"readme": 0})
+		Select(bson.M{"name": 1})
 
 	if limit > 0 {
 		result = result.Limit(limit)
@@ -39,6 +39,7 @@ func (store RepositoryStore) FindPackageWithinLimit(query string, skip int, limi
 	if skip > 0 {
 		result = result.Skip(skip)
 	}
+
 	err := result.All(repositories)
 	return repositories, err
 }

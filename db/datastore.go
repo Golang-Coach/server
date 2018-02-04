@@ -1,7 +1,7 @@
 package db
 
 import (
-	"gopkg.in/mgo.v2"
+	"github.com/globalsign/mgo"
 )
 
 type DataStore struct {
@@ -16,7 +16,7 @@ func (store DataStore) GetCollection() *mgo.Collection {
 
 func (store DataStore) GetDatabase() *mgo.Database {
 	session := store.Session.Clone()
-	database := &mgo.Database{session, "golang-couch"} /// TODO get this from environment variable
+	database := &mgo.Database{session, "golang-coach"} /// TODO get this from environment variable
 	return database
 }
 

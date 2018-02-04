@@ -5,6 +5,6 @@ import (
 )
 
 type IRepositoryStore interface {
-	FindPackage(query interface{}) (*models.Repository, error)
-	FindPackageWithinLimit(query string, skip int, limit int) (*[]models.Repository, error)
+	FindPackage(query interface{}) (*models.RepositoryInfo, error)
+	FindPackageWithinLimit(query string, skip int, limit int) (*[]models.RepositoryInfo, error)
 }

@@ -1,28 +1,24 @@
 package models
 
 import (
+	"github.com/globalsign/mgo/bson"
 	"time"
-	"gopkg.in/mgo.v2/bson"
 )
 
-type User struct {
-	Name       string
-	UserName   string
-	ProfileUrl string
-}
-
-type Repository struct {
+type RepositoryInfo struct {
 	ID            bson.ObjectId `bson:"_id,omitempty"`
 	Name          string
-	Description   string
-	LatestRelease string
-	PublishedAt   time.Time
-	UpdatedAt     time.Time
 	Owner         string
-	StarsCount    int
-	ForksCount    int
-	LastUpdatedBy User
+	FullName      string
+	Description   string
+	Stars         int
+	Forks         int
+	UpdatedAt     time.Time
+	LastUpdatedBy string
 	ReadMe        string
 	Tags          []string
 	Categories    []string
+	User          User
+	Processed     bool
+	ProcessedAt   time.Time
 }

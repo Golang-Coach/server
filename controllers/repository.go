@@ -30,8 +30,8 @@ func (c RepositoryController) GetRepositories(context *gin.Context) {
 	query := context.Query("query")
 	page, _ := strconv.Atoi(context.DefaultQuery("page", "1"))    // TODO
 	limit, _ := strconv.Atoi(context.DefaultQuery("limit", "20")) // TODO
-
-	repositories, _ := c.store.FindPackageWithinLimit(query, page, limit)
+	skip := (page - 1) * limit
+	repositories, _ := c.store.FindPackageWithinLimit(query, skip , limit)
 
 	context.JSON(http.StatusOK, repositories)
 }
