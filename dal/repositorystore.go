@@ -29,8 +29,8 @@ func (store RepositoryStore) FindPackageWithinLimit(query string, skip int, limi
 	repositories := &[]models.RepositoryInfo{}
 
 	result := store.GetCollection().
-		Find(bson.M{}).
-		Select(bson.M{"name": 1})
+		Find(bson.M{"processed": true}).
+		Select(bson.M{"readme": 0})
 
 	if limit > 0 {
 		result = result.Limit(limit)

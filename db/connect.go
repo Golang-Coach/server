@@ -2,12 +2,10 @@ package db
 
 import (
 	"crypto/tls"
-	"fmt"
 	"github.com/globalsign/mgo"
 	"net"
 	"os"
-	//"time"
-	//"time"
+	"log"
 )
 
 func dialServer(addr *mgo.ServerAddr) (net.Conn, error) {
@@ -17,7 +15,7 @@ func dialServer(addr *mgo.ServerAddr) (net.Conn, error) {
 func Connect() *DataStore {
 	// TODO -- this is used to connect to MongoDB
 	// DialInfo holds options for establishing a session with a MongoDB cluster.
-	dialInfo, err := mgo.ParseURL(os.Getenv("connection-string"))
+	dialInfo, err := mgo.ParseURL(os.Getenv("connection_string"))
 	dialInfo.DialServer = dialServer
 
 	// Create a session which maintains a pool of socket connections
@@ -25,7 +23,7 @@ func Connect() *DataStore {
 	session, err := mgo.DialWithInfo(dialInfo)
 
 	if err != nil {
-		fmt.Printf("Can't connect to mongo, go error %v\n", err)
+		log.Fatalln("Can't connect to mongo, go error %v\n", err)
 		os.Exit(1)
 	}
 
@@ -34,8 +32,6 @@ func Connect() *DataStore {
 	// without error checking. The unsafe mode is faster since operations won't hold on waiting for a confirmation.
 	// http://godoc.org/labix.org/v2/mgo#Session.SetMode.
 	session.SetSafe(&mgo.Safe{})
-
-	fmt.Println(session.DatabaseNames())
 
 	dataStore := &DataStore{session}
 	dataStore.EnsureConnected()
