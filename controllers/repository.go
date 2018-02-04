@@ -1,27 +1,37 @@
 package controllers
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/Golang-Coach/server/interfaces"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"strconv"
 )
 
 type RepositoryController struct {
-	store interfaces.IDataStore
+	store interfaces.IRepositoryStore
 }
 
-
-func NewRepositoryController(store interfaces.IDataStore) RepositoryController {
+func NewRepositoryController(store interfaces.IRepositoryStore) RepositoryController {
 	return RepositoryController{
-		store: store,
+		store,
 	}
 }
 
 // TODO replace ginContext with IContext
 //noinspection ALL
-func (this RepositoryController) GetRespositories(context *gin.Context){
+// @Summary GetRepositories
+// @Description GetRepositories
+// @ID get-repositories
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"ok"
+// @Router /repositories [get]
+func (c RepositoryController) GetRepositories(context *gin.Context) {
 	query := context.Query("query")
-	page := context.DefaultQuery("page", "1")
-	limit := context.DefaultQuery("limit", "20")
+	page, _ := strconv.Atoi(context.DefaultQuery("page", "1"))    // TODO
+	limit, _ := strconv.Atoi(context.DefaultQuery("limit", "20")) // TODO
 
-	this.store.FindPackageWithinLimit()
+	repositories, _ := c.store.FindPackageWithinLimit(query, page, limit)
+
+	context.JSON(http.StatusOK, repositories)
 }

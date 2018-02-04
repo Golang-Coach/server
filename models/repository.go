@@ -6,24 +6,23 @@ import (
 )
 
 type User struct {
-	Name string
-	UserName string
+	Name       string
+	UserName   string
 	ProfileUrl string
 }
 
-type Repository struct{
-	ID bson.ObjectId  `bson:"_id,omitempty"`
-	Name string
-	Description string
+type Repository struct {
+	ID            bson.ObjectId `bson:"_id,omitempty"`
+	Name          string
+	Description   string
 	LatestRelease string
-	PublishedAt time.Time
-	UpdatedAt time.Time
-	Owner string
-	StarsCount int
-	ForksCount int
+	PublishedAt   time.Time
+	UpdatedAt     time.Time
+	Owner         string
+	StarsCount    int
+	ForksCount    int
 	LastUpdatedBy User
-	ReadMe string
-	Tags []string
-	Categories []string
+	ReadMe        string
+	Tags          []string
+	Categories    []string
 }
-

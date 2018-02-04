@@ -17,3 +17,4 @@
 ./main.exe
 
 .idea/*
+/scripts/go_run.sh

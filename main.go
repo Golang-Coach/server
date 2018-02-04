@@ -1,11 +1,14 @@
 package main
 
 import (
+	"github.com/Golang-Coach/server/controllers"
+	"github.com/Golang-Coach/server/dal"
+	"github.com/Golang-Coach/server/db"
+	_ "github.com/Golang-Coach/server/docs"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"os"
-	_ "github.com/Golang-Coach/server/docs"
 )
 
 var DB = make(map[string]string)
@@ -21,11 +24,14 @@ func GetPing(c *gin.Context) {
 	c.String(200, "pong")
 }
 
-func setupRouter() *gin.Engine {
+func setupRouter(store *db.DataStore) *gin.Engine {
 	r := gin.Default()
+
+	repositoryController := controllers.NewRepositoryController(dal.NewRepositoryStore(store))
 
 	// Ping test
 	r.GET("/ping", GetPing)
+	r.GET("/repositories", repositoryController.GetRepositories)
 
 	return r
 }
@@ -42,16 +48,21 @@ func setupRouter() *gin.Engine {
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:8080
+// @host localhost:3005
 func main() {
-	r := setupRouter()
+	dataStore := db.Connect()
+	defer dataStore.Session.Close()
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r := setupRouter(dataStore)
+
+	if gin.Mode() == gin.DebugMode {
+		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	}
 
 	// Listen and Server in 0.0.0.0:8080
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "80"
+		port = "3005"
 	}
 	r.Run(":" + port)
 }
