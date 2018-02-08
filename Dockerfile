@@ -1,4 +1,5 @@
 FROM golang:latest
+EXPOSE 80
 
 RUN mkdir /app
 

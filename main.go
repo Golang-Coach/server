@@ -9,6 +9,7 @@ import (
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"os"
+	"fmt"
 )
 
 var DB = make(map[string]string)
@@ -31,8 +32,8 @@ func setupRouter(store *db.DataStore) *gin.Engine {
 
 	// Ping test
 	r.GET("/ping", GetPing)
+	r.GET("/repositories/:id", repositoryController.GetRepositoryById)
 	r.GET("/repositories", repositoryController.GetRepositories)
-
 	return r
 }
 
@@ -50,6 +51,7 @@ func setupRouter(store *db.DataStore) *gin.Engine {
 
 // @host localhost:3005
 func main() {
+	fmt.Println("server has been started !!!!!")
 	dataStore := db.Connect()
 	defer dataStore.Session.Close()
 

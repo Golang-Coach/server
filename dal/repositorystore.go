@@ -17,10 +17,10 @@ func NewRepositoryStore(dataStore *db.DataStore) interfaces.IRepositoryStore {
 	}
 }
 
-func (store RepositoryStore) FindPackage(query interface{}) (*models.RepositoryInfo, error) {
+func (store RepositoryStore) FindId(id string) (*models.RepositoryInfo, error) {
 	// find package with limit
 	repositoryInfo := &models.RepositoryInfo{}
-	err := store.GetCollection().Find(query).All(repositoryInfo)
+	err := store.GetCollection().FindId(bson.ObjectIdHex(id)).One(&repositoryInfo)
 	return repositoryInfo, err
 }
 

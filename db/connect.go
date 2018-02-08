@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"log"
+	"fmt"
 )
 
 func dialServer(addr *mgo.ServerAddr) (net.Conn, error) {
@@ -15,6 +16,7 @@ func dialServer(addr *mgo.ServerAddr) (net.Conn, error) {
 func Connect() *DataStore {
 	// TODO -- this is used to connect to MongoDB
 	// DialInfo holds options for establishing a session with a MongoDB cluster.
+	fmt.Println(os.Getenv("connection_string"))
 	dialInfo, err := mgo.ParseURL(os.Getenv("connection_string"))
 	dialInfo.DialServer = dialServer
 
