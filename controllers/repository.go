@@ -27,7 +27,7 @@ func NewRepositoryController(store interfaces.IRepositoryStore) RepositoryContro
 // @Failure 404 {object} string "Not found"
 // @Router /repositories [get]
 func (c RepositoryController) GetRepositories(context *gin.Context) {
-	query := context.Query("query")
+	query := context.DefaultQuery("query", "")
 
 	page, err := strconv.Atoi(context.DefaultQuery("page", "1"))
 	if err != nil {

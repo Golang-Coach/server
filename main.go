@@ -6,14 +6,12 @@ import (
 	"github.com/Golang-Coach/server/dal"
 	"github.com/Golang-Coach/server/db"
 	_ "github.com/Golang-Coach/server/docs"
-	"github.com/gin-contrib/cache"
-	"github.com/gin-contrib/cache/persistence"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"os"
-	"time"
-	"github.com/gin-contrib/cors"
 )
 
 var DB = make(map[string]string)
@@ -22,20 +20,16 @@ func setupRouter(store *db.DataStore) *gin.Engine {
 	r := gin.Default()
 
 	//// use compression
-	//r.Use(gzip.Gzip(gzip.DefaultCompression))
+	r.Use(gzip.Gzip(gzip.BestSpeed))
 
 	// enable CORS for all domain
 	r.Use(cors.Default())
 
-	// store in memory for 6 hours
-	expiry := time.Hour * 6
-	memoryCache := persistence.NewInMemoryStore(expiry)
-
 	repositoryController := controllers.NewRepositoryController(dal.NewRepositoryStore(store))
 
 	// Ping test
-	r.GET("/repositories/:id", cache.CachePage(memoryCache, expiry, repositoryController.GetRepositoryById))
-	r.GET("/repositories", cache.CachePage(memoryCache, expiry, repositoryController.GetRepositories))
+	r.GET("/repositories/:id", repositoryController.GetRepositoryById)
+	r.GET("/repositories", repositoryController.GetRepositories)
 
 	return r
 }

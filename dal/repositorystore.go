@@ -27,18 +27,26 @@ func (store RepositoryStore) FindId(id string) (*models.RepositoryInfo, error) {
 func (store RepositoryStore) FindPackageWithinLimit(query string, skip int, limit int) (*[]models.RepositoryInfo, error) {
 	// find package with limit
 	repositories := &[]models.RepositoryInfo{}
+	var pipeline []bson.M
+	if query != "" {
+		pipeline = []bson.M{
+			{"$match": bson.M{"$text": bson.M{"$search": query}, "processed": true}},
+			{"$sort": bson.M{"score": bson.M{"$meta": "textScore"}}},
+			{"$skip": skip},
+			{"$limit": limit},
+			{"$project": bson.M{"readme": 0}},
+		}
+	} else {
+		pipeline = []bson.M{
+			{"$match": bson.M{"processed": true}},
+			{"$skip": skip},
+			{"$limit": limit},
+			{"$project": bson.M{"readme": 0}},
+		}
+	}
 
 	result := store.GetCollection().
-		Find(bson.M{"processed": true}).
-		Select(bson.M{"readme": 0})
-
-	if limit > 0 {
-		result = result.Limit(limit)
-	}
-
-	if skip > 0 {
-		result = result.Skip(skip)
-	}
+		Pipe(pipeline)
 
 	err := result.All(repositories)
 	return repositories, err

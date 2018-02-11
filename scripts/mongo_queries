@@ -1,0 +1,21 @@
+# create indexes in mongodb
+# db.repositories.createIndex( { name: "text", fullname: "text", description: "text", readme: "text" } )
+
+# $text with skip
+
+# a - by relevance
+
+db.repositories.aggregate(
+   [
+     { $match: { $text: { $search: "react" } } },
+     { $sort: { score: { $meta: "textScore" } } },
+     { $skip : 2 },
+     { $limit: 20 }
+   ]
+)
+
+# b - by last updated
+
+
+# c - by popular
+
