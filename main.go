@@ -10,28 +10,21 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"os"
 	"fmt"
+	"github.com/gin-contrib/gzip"
 )
 
 var DB = make(map[string]string)
 
-// @Summary ping
-// @Description ping
-// @ID get-ping
-// @Accept  json
-// @Produce  json
-// @Success 200 {string} string	"ok"
-// @Router /ping [get]
-func GetPing(c *gin.Context) {
-	c.String(200, "pong")
-}
 
 func setupRouter(store *db.DataStore) *gin.Engine {
 	r := gin.Default()
 
+	// use compression
+	r.Use(gzip.Gzip(gzip.DefaultCompression))
+
 	repositoryController := controllers.NewRepositoryController(dal.NewRepositoryStore(store))
 
 	// Ping test
-	r.GET("/ping", GetPing)
 	r.GET("/repositories/:id", repositoryController.GetRepositoryById)
 	r.GET("/repositories", repositoryController.GetRepositories)
 	return r
