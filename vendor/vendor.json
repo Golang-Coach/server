@@ -15,6 +15,48 @@
 			"revisionTime": "2017-08-10T14:37:23Z"
 		},
 		{
+			"checksumSHA1": "fvVoeETRxg13N2GlxydO+5slZdM=",
+			"path": "github.com/bradfitz/gomemcache/memcache",
+			"revision": "1952afaa557dc08e8e0d89eafab110fb501c1a2b",
+			"revisionTime": "2017-02-08T21:30:04Z"
+		},
+		{
+			"checksumSHA1": "2UmMbNHc8FBr98mJFN1k8ISOIHk=",
+			"path": "github.com/garyburd/redigo/internal",
+			"revision": "d1ed5c67e5794de818ea85e6b522fda02623a484",
+			"revisionTime": "2017-12-29T01:14:44Z"
+		},
+		{
+			"checksumSHA1": "sc/XC7agvewnB1AGXMGZRkVzM8c=",
+			"path": "github.com/garyburd/redigo/redis",
+			"revision": "d1ed5c67e5794de818ea85e6b522fda02623a484",
+			"revisionTime": "2017-12-29T01:14:44Z"
+		},
+		{
+			"checksumSHA1": "m34QqGJRl2VMuTo1R0JkbKUMhFE=",
+			"path": "github.com/gin-contrib/cache",
+			"revision": "87f25cc11083b14a2b7e2d28553d5b05b39dcb2e",
+			"revisionTime": "2018-01-20T15:39:08Z"
+		},
+		{
+			"checksumSHA1": "8cpHFf0DaG2QqrGEgYGpnrRDIB0=",
+			"path": "github.com/gin-contrib/cache/persistence",
+			"revision": "87f25cc11083b14a2b7e2d28553d5b05b39dcb2e",
+			"revisionTime": "2018-01-20T15:39:08Z"
+		},
+		{
+			"checksumSHA1": "NDh5MuQeIW05zTQzpY5kEmrWKiU=",
+			"path": "github.com/gin-contrib/cache/utils",
+			"revision": "87f25cc11083b14a2b7e2d28553d5b05b39dcb2e",
+			"revisionTime": "2018-01-20T15:39:08Z"
+		},
+		{
+			"checksumSHA1": "XeZ0s/EYoIORsoatbSOJQzIDLgU=",
+			"path": "github.com/gin-contrib/cors",
+			"revision": "51f0ef8b07e973afb8b6c192bf90d5c3e575c01a",
+			"revisionTime": "2017-09-17T02:20:32Z"
+		},
+		{
 			"checksumSHA1": "63MPpk/DUPDrjnyi72Y8IuuIEH8=",
 			"path": "github.com/gin-contrib/gzip",
 			"revision": "8550979331b65341aa00ba29a11a89f5a5996aa9",
@@ -105,6 +147,10 @@
 			"revisionTime": "2018-01-02T23:23:05Z"
 		},
 		{
+			"path": "github.com/go-redis/cache",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "yqF125xVSkmfLpIVGrLlfE05IUk=",
 			"path": "github.com/golang/protobuf/proto",
 			"revision": "1e59b77b52bf8e4b449a57e6f79f21226d571845",
@@ -133,6 +179,12 @@
 			"path": "github.com/mattn/go-isatty",
 			"revision": "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c",
 			"revisionTime": "2017-11-07T05:05:31Z"
+		},
+		{
+			"checksumSHA1": "XzHDmND/Rq9/RLKBP2fnAtBJu2M=",
+			"path": "github.com/robfig/go-cache",
+			"revision": "9fc39e0dbf62c034ec4e45e6120fc69433a3ec51",
+			"revisionTime": "2013-03-06T15:13:11Z"
 		},
 		{
 			"checksumSHA1": "DOPidDb4kXl7YfAIRlRA3CIbr1U=",
