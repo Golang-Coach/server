@@ -12,6 +12,8 @@ import (
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"os"
+	"runtime"
+	"strconv"
 )
 
 var DB = make(map[string]string)
@@ -49,6 +51,9 @@ func setupRouter(store *db.DataStore) *gin.Engine {
 // @host localhost:3005
 func main() {
 	fmt.Println("server has been started !!!!!")
+
+	runtime.GOMAXPROCS(GetMaxProcess())
+
 	dataStore := db.Connect()
 	defer dataStore.Session.Close()
 
@@ -64,4 +69,12 @@ func main() {
 		port = "3005"
 	}
 	r.Run(":" + port)
+}
+func GetMaxProcess() int {
+	var maxProcess int
+	maxProcess, err := strconv.Atoi(os.Getenv("MAXPROCESS"))
+	if err != nil {
+		maxProcess = 1
+	}
+	return maxProcess
 }
