@@ -51,6 +51,9 @@ func setupRouter(store *db.DataStore) *gin.Engine {
 func main() {
 	fmt.Println("server has been started !!!!!")
 
+	// set gin in release mode
+	gin.SetMode(gin.ReleaseMode)
+
 	ConfigRuntime()
 
 	dataStore := db.Connect()
