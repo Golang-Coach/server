@@ -1,6 +1,8 @@
 # create indexes in mongodb
 # db.repositories.createIndex( { name: "text", fullname: "text", description: "text", readme: "text" } )
 
+# db.repositories.createIndex
+
 # $text with skip
 
 # a - by relevance

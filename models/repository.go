@@ -6,19 +6,20 @@ import (
 )
 
 type RepositoryInfo struct {
-	ID            bson.ObjectId `bson:"_id,omitempty"`
-	Name          string
-	Owner         string
-	FullName      string
-	Description   string
-	Stars         int
-	Forks         int
-	UpdatedAt     time.Time
-	LastUpdatedBy string
-	ReadMe        string
-	Tags          []string
-	Categories    []string
-	User          User
-	Processed     bool
-	ProcessedAt   time.Time
+	ID            bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	Name          string        `json:"name"`
+	Owner         string        `json:"owner"`
+	FullName      string        `json:"fullName"`
+	Description   string        `json:"description"`
+	Stars         int           `json:"stars"`
+	Forks         int           `json:"forks"`
+	UpdatedAt     time.Time     `json:"updatedAt"`
+	LastUpdatedBy string        `json:"lastUpdatedBy"`
+	ReadMe        string        `json:"readme"`
+	Tags          []string      `json:"tags"`
+	Categories    []string      `json:"categories"`
+	User          User          `json:"user"`
+	Processed     bool          `json:"processed"`
+	ProcessedAt   time.Time     `json:"processedAt"`
+	License       string        `json:"license"`
 }

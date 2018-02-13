@@ -50,7 +50,12 @@ func (c RepositoryController) GetRepositories(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, repositories)
+	context.JSON(http.StatusOK, map[string]interface{}{
+		"repositories": repositories,
+		"page":         page,
+		"size":         limit,
+		"total":        100, // TODO -- get total from db
+	})
 }
 
 // @Summary GetRepository by ID
@@ -64,9 +69,10 @@ func (c RepositoryController) GetRepositories(context *gin.Context) {
 // @Failure 404 {object} string "Not found"
 // @Router /repositories/{id} [get]
 func (c RepositoryController) GetRepositoryById(context *gin.Context) {
-	id := context.Param("id")
+	owner := context.Param("owner")
+	name := context.Param("name")
 
-	repository, err := c.store.FindId(id)
+	repository, err := c.store.FindByFullName(owner, name)
 
 	if err != nil {
 		if err.Error() == "not found" {

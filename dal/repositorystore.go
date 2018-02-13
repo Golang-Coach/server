@@ -17,10 +17,10 @@ func NewRepositoryStore(dataStore *db.DataStore) interfaces.IRepositoryStore {
 	}
 }
 
-func (store RepositoryStore) FindId(id string) (*models.RepositoryInfo, error) {
+func (store RepositoryStore) FindByFullName(owner string, name string) (*models.RepositoryInfo, error) {
 	// find package with limit
 	repositoryInfo := &models.RepositoryInfo{}
-	err := store.GetCollection().FindId(bson.ObjectIdHex(id)).One(&repositoryInfo)
+	err := store.GetCollection().Find(bson.M{"owner": owner, "name": name}).One(&repositoryInfo)
 	return repositoryInfo, err
 }
 

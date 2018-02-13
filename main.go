@@ -2,38 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/Golang-Coach/server/controllers"
-	"github.com/Golang-Coach/server/dal"
 	"github.com/Golang-Coach/server/db"
 	_ "github.com/Golang-Coach/server/docs"
-	"github.com/gin-contrib/cors"
-	"github.com/gin-contrib/gzip"
+	"github.com/Golang-Coach/server/route"
 	"github.com/gin-gonic/gin"
-	"github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"os"
 	"runtime"
 )
 
 var DB = make(map[string]string)
-
-func setupRouter(store *db.DataStore) *gin.Engine {
-	r := gin.Default()
-
-	//// use compression
-	r.Use(gzip.Gzip(gzip.BestSpeed))
-
-	// enable CORS for all domain
-	r.Use(cors.Default())
-
-	repositoryController := controllers.NewRepositoryController(dal.NewRepositoryStore(store))
-
-	// Ping test
-	r.GET("/repositories/", repositoryController.GetRepositories)
-	r.GET("/repositories/:id", repositoryController.GetRepositoryById)
-
-	return r
-}
 
 // @title Swagger Example API
 // @version 1.0
@@ -59,11 +36,7 @@ func main() {
 	dataStore := db.Connect()
 	defer dataStore.Session.Close()
 
-	r := setupRouter(dataStore)
-
-	if gin.Mode() == gin.DebugMode {
-		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	}
+	r := route.SetupRouter(dataStore)
 
 	// Listen and Server in 0.0.0.0:8080
 	port := os.Getenv("PORT")
