@@ -1,5 +1,6 @@
 # create indexes in mongodb
 # db.repositories.createIndex( { name: "text", fullname: "text", description: "text", readme: "text" } )
+# db.repositories.createIndex( { name: 1, owner: 1 } )
 
 # db.repositories.createIndex
 
